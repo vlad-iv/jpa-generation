@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.vladiv.jpageneration.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.vladiv.jpageneration.MyBundle
 
 class MyApplicationService {
 
