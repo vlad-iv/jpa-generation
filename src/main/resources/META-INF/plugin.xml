@@ -15,4 +15,10 @@
         <listener class="com.github.vladiv.jpageneration.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+	<actions>
+		<action id="com.github.vladiv.jpageneration.actions.JpaAction" class="com.github.vladiv.jpageneration.actions.JpaAction"
+				text="JpaAction" description="JPA action">
+			<add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+		</action>
+	</actions>
 </idea-plugin>
