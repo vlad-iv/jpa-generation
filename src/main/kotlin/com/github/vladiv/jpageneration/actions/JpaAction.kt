@@ -4,12 +4,8 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
-import com.intellij.openapi.fileChooser.FileSystemTree
-import com.intellij.openapi.fileChooser.ex.FileSystemTreeImpl
-import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import com.intellij.ui.UIBundle
 import java.io.IOException
 import java.nio.charset.StandardCharsets.UTF_8
 
@@ -134,7 +130,7 @@ class JpaAction : AnAction() {
         val project: Project? = e.getData(PlatformDataKeys.PROJECT)
 
 
-        val title = "JPA Generation"
+        val title = "JPA Bean Generation"
 
 //        val tree = e.getData(FileSystemTree.DATA_KEY)
 //        if (tree == null) {
@@ -284,36 +280,5 @@ class JpaAction : AnAction() {
 
         // Отображение диалога
         Messages.showMessageDialog(project, sb.toString(), title, Messages.getInformationIcon())
-    }
-
-    private fun createNewFile(fileSystemTree: FileSystemTree, fileType: FileType, initialContent: String) {
-        val file = fileSystemTree.newFileParent
-        if (file == null || !file.isDirectory) return
-        var newFileName: String?
-        while (true) {
-            newFileName = Messages.showInputDialog(
-                UIBundle.message("create.new.file.enter.new.file.name.prompt.text"),
-                UIBundle.message("new.file.dialog.title"), Messages.getQuestionIcon()
-            )
-            if (newFileName == null) {
-                return
-            }
-            if ("" == newFileName.trim { it <= ' ' }) {
-                Messages.showMessageDialog(
-                    UIBundle.message("create.new.file.file.name.cannot.be.empty.error.message"),
-                    UIBundle.message("error.dialog.title"), Messages.getErrorIcon()
-                )
-                continue
-            }
-            val failReason = (fileSystemTree as FileSystemTreeImpl).createNewFile(file, newFileName, fileType, initialContent)
-            if (failReason != null) {
-                Messages.showMessageDialog(
-                    UIBundle.message("create.new.file.could.not.create.file.error.message", newFileName),
-                    UIBundle.message("error.dialog.title"), Messages.getErrorIcon()
-                )
-                continue
-            }
-            return
-        }
     }
 }
